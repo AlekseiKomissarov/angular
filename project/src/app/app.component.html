@@ -1,43 +1,4 @@
 <div class="container">
   <h1>Angular</h1>
 
-  <p>Wait for it ... {{p | async}}</p>
-  <p>Date: {{date | async | date: 'HH:mm:ss'}}</p>
-
-  <button class="btn" (click)="searchField='title'">title</button>
-  <button class="btn" (click)="searchField='text'">text</button>
-
-  <hr>
-
-  <button class="btn" (click)="addPost()">Добавить пост</button>
-
-  <input type="text" [(ngModel)]="search">
-
-  <div
-    *ngFor="let p of posts | filter: search: searchField"
-    class="card">
-    <h2>{{p.title}}</h2>
-    <p>{{p.text}}</p>
-  </div>
-
-  <!--<p>{{e | number:'1.1-5'}}</p>-->
-  <!--<p>{{str | titlecase | slice:1:-5}}</p>-->
-  <!--<p>{{10 | mult:2}}</p>-->
-
-  <!--<p-->
-    <!--[appStyle]="'red'"-->
-    <!--[dStyles]="{border: '1px solid blue', fontWeight: 'bold', borderRadius: '5px'}"-->
-  <!--&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, magnam!-->
-  <!--</p>-->
-
-  <!--<button class="btn" (click)="isVisible=!isVisible">Toggle</button>-->
-
-  <!--<div *ngIf="isVisible" class="wrap">-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, dolor!</p>-->
-  <!--</div>-->
-
-  <!--<div *appIfnot="!isVisible" class="wrap">-->
-    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, dolor!</p>-->
-  <!--</div>-->
-
 </div>
