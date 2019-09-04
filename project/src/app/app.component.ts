@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 
 export interface Post {
-  title: string
+  title: string,
   text: string
 }
 
@@ -29,8 +29,8 @@ export class AppComponent{
     }, 4000)
   })
 
-  date: Observable = new Observable(obs=>{
-    setInterval(()=>{
+  date: Observable<Date> = new Observable(obs => {
+    setInterval(() => {
       obs.next(new Date())
     }, 1000)
   })
