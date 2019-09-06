@@ -1,75 +1,37 @@
 <div class="container">
-  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
-    <h1>Angular Forms</h1>
+  <h1>Angular HttpClient</h1>
 
+  <div class="card">
     <div class="form-control">
-      <label>Email</label>
-      <input type="text" placeholder="Email" formControlName="email">
-      <div
-        class="validation"
-        *ngIf="form.get('email').invalid && form.get('email').touched"
-      >
-        <small *ngIf="form.get('email').errors.required">
-          Поле не может быть пустым
-        </small>
+      <input type="text" placeholder="Название" [(ngModel)]="todoTittle">
+    </div>
+    <button class="btn" (click)="addTodo()">Добавить</button>
+    <button class="btn" (click)="fetchTodo()">Загрузить</button>
+  </div>
 
-        <small *ngIf="form.get('email').errors.email">
-          Введите корректный email
-        </small>
+  <hr>
 
+  <p class="error" *ngIf="error; else todoBlock">{{error}}</p>
+
+  <ng-template #todoBlock>
+    <div *ngIf="!loading; else loadingBlock">
+      <div class="card" *ngFor="let todo of todos">
+        <p>
+          <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
+          <span>
+          <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
+          <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
+        </span>
+        </p>
       </div>
     </div>
 
-    <div class="form-control">
-      <label>Пароль</label>
-      <input type="password" placeholder="Пароль" formControlName="password">
-      <div
-        class="validation"
-        *ngIf="form.get('password').invalid && form.get('password').touched"
-      >
-        <small *ngIf="form.get('password').errors.required">
-          Пароль не может быть пустым
-        </small>
 
-        <small *ngIf="form.get('password').errors.minlength">
-          Длина должна быть не менее {{form.get('password').errors.minlength.requiredLength}}
-        </small>
+    <ng-template #loadingBlock>
+      <p>loading...</p>
+    </ng-template>
+  </ng-template>
 
-      </div>
-    </div>
-
-    <div class="card" formGroupName="address">
-      <h2>Адрес</h2>
-
-      <div class="form-control">
-        <label>Страна</label>
-
-        <select formControlName="country">
-          <option value="ru">Россия</option>
-          <option value="ua">Украина</option>
-          <option value="by">Беларусь</option>
-        </select>
-      </div>
-
-      <div class="form-control">
-        <input type="text" formControlName="city">
-      </div>
-
-      <button class="btn" type="button">Выбрать столицу</button>
-    </div>
-
-    <div class="card">
-      <h2>Ваши навыки</h2>
-      <button class="btn" type="button">Добавить умение</button>
-      <div class="form-control">
-        <label></label>
-        <input type="text">
-      </div>
-    </div>
-
-    <button class="btn" type="submit" [disabled]="form.invalid" >Отправить</button>
-
-  </form>
 </div>
 
 

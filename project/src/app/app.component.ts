@@ -1,40 +1,66 @@
 import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Todo, TodoService} from './todo.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-  form: FormGroup
+export class AppComponent implements OnInit {
+
+  todos: Todo[] = []
+  todoTittle = ''
+  loading = false
+  error = ''
+
+  constructor(private todoService: TodoService){}
 
   ngOnInit() {
-    this.form = new FormGroup({
-      email: new FormControl('', [
-        Validators.email,
-        Validators.required
-      ]),
-      password: new FormControl(null,[
-        Validators.required,
-        Validators.minLength(6)
-      ]),
+    this.fetchTodo()
+  }
 
-      address: new FormGroup( {
-        country: new FormControl('ru'),
-        city: new FormControl('', Validators.required)
-      })
+  addTodo() {
+    if (!this.todoTittle.trim()) {
+      return
+    }
+    this.todoService.addTodo({
+      title: this.todoTittle,
+      completed: false
+    }).subscribe(todo => {
+      this.todos.push(todo)
+      this.todoTittle = ''
     })
   }
 
-  submit(){
-    if (this.form.valid ){
-      console.log('Form submitted', this.form)
-      const formData = {...this.form.value}
-      console.log('Form Data ', formData)
-    }
+  fetchTodo() {
+    this.loading = true
+    this.todoService.fetchTodo()
+      .subscribe(response => {
+        this.todos = response
+        this.loading = false
+      }, error =>{
+        console.log('Error:', error.message)
+        this.error = error.message
+      })
+  }
+
+  removeTodo(id: number) {
+    this.loading = true
+    this.todoService.removeTodo(id)
+      .subscribe(()=>{
+        this.todos = this.todos.filter(t => t.id !== id)
+        this.loading = false
+      })
 
   }
 
+  completeTodo(id: number) {
+    this.todoService.completeTodo(id)
+      .subscribe(todo =>{
+        this.todos.find(t => t.id === todo.id).completed = true
+      })
+  }
 }
 
