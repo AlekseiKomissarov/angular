@@ -2,23 +2,22 @@ import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
 
 import {AppComponent} from './app.component'
-import {FormsModule} from '@angular/forms'
-import {HomePageComponent} from './home-page/home-page.component'
-import {AppRoutingModule} from './app-routing.module'
-import {SharedModule} from './shared/shared.module';
+import {FormsModule} from '@angular/forms';
+import { ModalComponent } from './modal/modal.component'
+import {RefDirective} from './ref.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
+    ModalComponent,
+    RefDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
-    SharedModule
   ],
   providers: [],
+  entryComponents: [ModalComponent], // используется если нигде в шаблоне не указан <app-comp>
   bootstrap: [AppComponent]
 })
 export class AppModule {

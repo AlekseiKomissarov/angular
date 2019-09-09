@@ -10,7 +10,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,{
-    preloadingStrategy: PreloadAllModules // выполняет загрузку остальных модулей после загрузки всех скриптов
+    preloadingStrategy: PreloadAllModules // выполняет загрузку остальных модулей после загрузки всех scripts
   })],
   exports: [RouterModule]
 })
