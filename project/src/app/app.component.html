@@ -1,37 +1,23 @@
+<nav class="navbar">
+  <h1>
+    <a [routerLink]="['/']">Angular Routing</a>
+  </h1>
+  <ul>
+    <li routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    ><a [routerLink]="['/']">Home</a></li>
+    <li routerLinkActive="active"><a routerLink="/posts">Posts</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/about']">About</a></li>
+
+    <li><button class="btn" (click)="auth.login()">Login</button></li>
+    <li><button class="btn" (click)="auth.logout()">Logout</button></li>
+  </ul>
+</nav>
+
 <div class="container">
-  <h1>Angular HttpClient</h1>
-
   <div class="card">
-    <div class="form-control">
-      <input type="text" placeholder="Название" [(ngModel)]="todoTittle">
-    </div>
-    <button class="btn" (click)="addTodo()">Добавить</button>
-    <button class="btn" (click)="fetchTodo()">Загрузить</button>
+  <router-outlet></router-outlet>
   </div>
-
-  <hr>
-
-  <p class="error" *ngIf="error; else todoBlock">{{error}}</p>
-
-  <ng-template #todoBlock>
-    <div *ngIf="!loading; else loadingBlock">
-      <div class="card" *ngFor="let todo of todos">
-        <p>
-          <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
-          <span>
-          <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
-          <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
-        </span>
-        </p>
-      </div>
-    </div>
-
-
-    <ng-template #loadingBlock>
-      <p>loading...</p>
-    </ng-template>
-  </ng-template>
-
 </div>
 
 
